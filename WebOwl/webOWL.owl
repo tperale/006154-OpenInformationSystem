@@ -22,11 +22,29 @@
     
 
 
+    <!-- http://www.semanticweb.org/ebookStore.owl#categoriseBy -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#categoriseBy">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Ebook"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ebookStore.owl#SubCategory"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/ebookStore.owl#contains -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#contains">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Purchase"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/ebookStore.owl#Ebook"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#has -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#has">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ebookStore.owl#Role"/>
     </owl:ObjectProperty>
     
 
@@ -40,18 +58,27 @@
     
 
 
-    <!-- http://www.semanticweb.org/ebookStore.owl#published -->
+    <!-- http://www.semanticweb.org/ebookStore.owl#publishes -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#published">
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#publishes">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Publisher"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/ebookStore.owl#Ebook"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://www.semanticweb.org/ebookStore.owl#wrote -->
+    <!-- http://www.semanticweb.org/ebookStore.owl#subCategoryOf -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#wrote">
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#subCategoryOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#SubCategory"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ebookStore.owl#Category"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#writes -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#writes">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Author"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/ebookStore.owl#Ebook"/>
     </owl:ObjectProperty>
@@ -82,6 +109,33 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#author_ID">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Author"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#category_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#category_ID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Category"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#category_description -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#category_description">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Category"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#ebook_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#ebook_ID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Ebook"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
     </owl:DatatypeProperty>
     
@@ -123,10 +177,118 @@
     
 
 
+    <!-- http://www.semanticweb.org/ebookStore.owl#purchase_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#purchase_ID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Purchase"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#purchase_timeStamp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#purchase_timeStamp">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Purchase"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#role_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#role_ID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Role"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#role_description -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#role_description">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Role"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#subCategory_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#subCategory_ID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#SubCategory"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#subCategory_description -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#subCategory_description">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#SubCategory"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.semanticweb.org/ebookStore.owl#title -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#title">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#Ebook"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#user_ID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#user_ID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#user_email -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#user_email">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#user_lastName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#user_lastName">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#user_name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#user_name">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#user_password -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#user_password">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#user_payInformation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#user_payInformation">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -171,6 +333,12 @@
     
 
 
+    <!-- http://www.semanticweb.org/ebookStore.owl#Category -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#Category"/>
+    
+
+
     <!-- http://www.semanticweb.org/ebookStore.owl#Ebook -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#Ebook">
@@ -191,6 +359,18 @@
     <!-- http://www.semanticweb.org/ebookStore.owl#Purchase -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#Purchase"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#Role -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#Role"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ebookStore.owl#SubCategory -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#SubCategory"/>
     
 
 
@@ -215,7 +395,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ebookStore.owl#J.R_Tolkien">
         <rdf:type rdf:resource="http://www.semanticweb.org/ebookStore.owl#Author"/>
-        <wrote rdf:resource="http://www.semanticweb.org/ebookStore.owl#ebook_test1"/>
         <author_ID rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</author_ID>
         <first_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">JR</first_name>
         <last_name rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Tolkien</last_name>
