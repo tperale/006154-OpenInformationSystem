@@ -264,22 +264,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/ebookStore.owl#subCategory_ID -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#subCategory_ID">
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/ebookStore.owl#subCategory_description -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#subCategory_description">
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
     <!-- http://www.semanticweb.org/ebookStore.owl#title -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#title">
