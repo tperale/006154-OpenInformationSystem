@@ -36,7 +36,7 @@ The Author class, has three attributes, ID, first name and last name, and is bou
 Rules
 
 \section{Rules description}
-First rule, If the book belongs to a category and that category is also a subcategory to another category, it implies that the book belongs to both the main category and it's subcategory. Example- If a book belongs to "war" category and the "war" category belongs to "action" category, it is implied that the book belongs to both "war" and "action" categories. This rule is relevant because an ebook can have more than one categories and some categories could be subcategories to another category. The book has to belong to all the categories.\\
+First rule, If the book belongs to a category and that category is also a subcategory to another category, it implies that the book belongs to both the main category and it's subcategory. Example- If a book belongs to "war" category and the "war" category belongs to "action" category, it is implied that the book belongs to both "war" and "action" categories. This rule is relevant because an ebook can have more than one categories and some categories could be subcategories of one or more of these categories. The book has to belong to all the categories.\\
 Ebook(?x), Category(?y), Category(?z), subCategoryOf(?y, ?z), hasCategory(?x, ?y), differentFrom(?y, ?z) $\rightarrow$ hasCategory(?x, ?z)
 
 Second rule, If a user makes a purchase and an ebook is part of the purchase, then we can imply that the user “HasPurchased” an ebook. This rule is relevant to keep a track of purchased books. \\
