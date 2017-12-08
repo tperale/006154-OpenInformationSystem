@@ -191,15 +191,6 @@
     
 
 
-    <!-- http://purl.org/goodrelations/v1#legalName -->
-
-    <owl:DatatypeProperty rdf:about="http://purl.org/goodrelations/v1#legalName">
-        <rdfs:domain rdf:resource="http://purl.org/goodrelations/v1#BusinessEntity"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
     <!-- http://www.semanticweb.org/ebookStore.owl#ISBN -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/ebookStore.owl#ISBN">
@@ -427,12 +418,6 @@
     
 
 
-    <!-- http://purl.org/goodrelations/v1#BusinessEntity -->
-
-    <owl:Class rdf:about="http://purl.org/goodrelations/v1#BusinessEntity"/>
-    
-
-
     <!-- http://purl.org/goodrelations/v1#DeliveryMethod -->
 
     <owl:Class rdf:about="http://purl.org/goodrelations/v1#DeliveryMethod">
@@ -516,7 +501,6 @@
     <!-- http://www.semanticweb.org/ebookStore.owl#Publisher -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#Publisher">
-        <rdfs:subClassOf rdf:resource="http://purl.org/goodrelations/v1#BusinessEntity"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
     </owl:Class>
     
