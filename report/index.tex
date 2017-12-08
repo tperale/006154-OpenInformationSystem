@@ -93,6 +93,24 @@ with it with \emph{hasRating}. The attributes for \emph{Rating} are:
   \item number
 \end{itemize}
 
+\section{Good Relations Description}
+
+This project implements the below three main classes of the Good Relations standards.
+
+ProductOrService: This class has two subclasses which are eBook and
+ProductOrServiceInstance(Good Relation Subclass). Making eBook a subclass of this standard
+we can deduce that an eBook is a product, and that it would have instances of it.
+
+PaymentMethod: Implementing this class with our Purchase class will be easier to standarized
+the payments methods of our project. This class has two payment methods, one is through the
+good relation individual named PayPal and other with a a subclass of payment method named
+PaymentMethodCreditCard that has two good relations individuals named MasterCard and Visa.
+
+DeliveryMethod: This class is also with the class Purchase, since when a client purchase an
+eBook, our system should Deliver our product, there is where Good Relations standard is
+implemented. For the Delivery Method we implement also a subclass of Good Relations standard
+named DeliveryModeDirectDownload since our product is eBooks.
+
 \section{Rules description}
 
 
