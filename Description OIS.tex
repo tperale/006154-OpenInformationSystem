@@ -36,17 +36,17 @@ The Author class, has three attributes, ID, first name and last name, and is bou
 Rules
 
 \section{Rules description}
-First rule, If the book belongs to a category and that category is also a subcategory to another category, it implies that the book belongs to both the main category and it's subcategory. Example- If a book belongs to "war" category and the "war" category belongs to "action" category, it is implied that the book belongs to both "war" and "action" categories.\\
+First rule, If the book belongs to a category and that category is also a subcategory to another category, it implies that the book belongs to both the main category and it's subcategory. Example- If a book belongs to "war" category and the "war" category belongs to "action" category, it is implied that the book belongs to both "war" and "action" categories. This rule is relevant because an ebook can have more than one categories and some categories could be subcategories to another category. The book has to belong to all the categories.\\
 Ebook(?x), Category(?y), Category(?z), subCategoryOf(?y, ?z), hasCategory(?x, ?y), differentFrom(?y, ?z) $\rightarrow$ hasCategory(?x, ?z)
 
-Second rule, If a user makes a purchase and an ebook is part of the purchase, then we can imply that the user “HasPurchased” an ebook. \\
+Second rule, If a user makes a purchase and an ebook is part of the purchase, then we can imply that the user “HasPurchased” an ebook. This rule is relevant to keep a track of purchased books. \\
 User(?x), Purchase(?y), Ebook(?z), isMaking(?x, ?y), isPartOf(?z, ?y) $\rightarrow$ hasPurchased(?x, ?z)
 
-Third rule, If a user has rated an ebook, it implies that the user purchased the ebook as the users can't rate a book without purchasing one. \\
+Third rule, If a user has rated an ebook, it implies that the user purchased the ebook as the users can't rate a book without purchasing one. The rule is relevant because users who didn't purchase the book can't rate it. \\
 
 User(?x), Rating(?y), Ebook(?z), hasRating(?x, ?y), hasRating(?z, ?y) $\rightarrow$ hasPurchased(?x, ?z)
 
-The last rule implies that if a user has the role "admin", they can manage the ebooks database on the system. \\
+The last rule implies that if a user has the role "admin", they can manage the ebooks database on the system. This rule is relevant because only the admin can manage the ebooks and not the normal users. \\
 User(?admin), Ebook(?book), AdminRole(?role), hasAdminRole(?admin, ?role) $\rightarrow$ manage(?admin, ?book)
 
 \section{ER Schema}
