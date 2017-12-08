@@ -860,7 +860,7 @@
                                         <rdf:first>
                                             <rdf:Description>
                                                 <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/ebookStore.owl#hasRating"/>
+                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/ebookStore.owl#hasRated"/>
                                                 <swrl:argument1 rdf:resource="http://www.semanticweb.org/ebookStore.owl#x"/>
                                                 <swrl:argument2 rdf:resource="http://www.semanticweb.org/ebookStore.owl#y"/>
                                             </rdf:Description>
