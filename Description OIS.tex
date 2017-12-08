@@ -19,15 +19,15 @@
 
 \section{Project subject}
 
-Our Webowl has eight classes, Category, Ebook, Purchase, Publisher, Author, User, Publisher, Role and Rating.
+The Webowl has eight classes, Category, Ebook, Purchase, Publisher, Author, User, Publisher, Role and Rating.
 The User class has eight attributes which are pay information, name, email, password, userID, lastName, two roles "client" and "admin", which are further connected to the Role class.
-Purchase class has two attributes ID and Timestamp, and is bounded to User class by "isMaking" relation where the User is the domain and Purchase is the range. The Purchase class is also a master class to the "PaymentMethod" and "DeliveryMethod" classes.
+The Purchase class has two attributes ID and Timestamp, and is bounded to User class by "isMaking" relation where the User is the domain and Purchase is the range. The Purchase class is also a master class to the "PaymentMethod" and "DeliveryMethod" classes.
 
 
-The user class is also bounded to the eBook class, with has four attributes year, version, title and ISBN, by the relation "hasPurchased" and "manage" where the User is the domain and eBook class is the range because of the second rule, that is explained below. The ebook class is also a subclass of "ProductorService" class. The eBook class will related to Purchase class through the relation “isPartOf” where the domain is the ebook class and the range is the purchase class. 
-Class named Rating with attributes ID and Number, is connected to eBook with the domain eBook and range Rating and User class with the domain User and range Rating through the relations “hasRating” and “hasRated” respectively.
+The user class is also bounded to the eBook class, which has four attributes year, version, title and ISBN, by the relation "hasPurchased" and "manage" where the User is the domain and eBook class is the range. The ebook class is also a subclass of "ProductorService" class. The eBook class is related to Purchase class through the relation “isPartOf” where the domain is the ebook class and the range is the purchase class. 
+The Rating class with two attributes ID and Number, is connected to eBook class with the domain eBook and range Rating and it is alos connected to the User class with the domain User and range Rating through the relations “hasRating” and “hasRated” respectively.
 
-The eBook class is bounded to Category class, that has two attributes ID and description, by the relation "hasCategory", where domain is ebook and the range is Category. Also the Category class has the relation “subCategoryOf” which infers that an eBook can have two categories, making one of them a subcategory as explained below in the rule one.
+The eBook class is bounded to Category class, that has two attributes ID and description, by the relation "hasCategory". The domain here is ebook and the range is Category. The Category class also has the relation “subCategoryOf” which infers that an eBook can have two categories.
 
 The eBook class is also bounded to the Publisher class by the relation "isPublishedby", where Ebook class is the domain and Publisher class is the range. The attributes of the Publisher class are the ID and name and it's also a subclass to "BusinessEntity" class.
 
@@ -36,10 +36,10 @@ The Author class, has three attributes, ID, first name and last name, and is bou
 Rules
 
 \section{Rules description}
-First rule, If the category of a book is also a subCategory of another category, it implies that the book belongs to both category and subcategory. Example- If a book belongs to "war" category and the "war" category belongs to "action" category, it is implied that the book belongs to both "war" and "action" categories.\\
+First rule, If the book belongs to a category and that category is also a subcategory to another category, it implies that the book belongs to both the main category and it's subcategory. Example- If a book belongs to "war" category and the "war" category belongs to "action" category, it is implied that the book belongs to both "war" and "action" categories.\\
 Ebook(?x), Category(?y), Category(?z), subCategoryOf(?y, ?z), hasCategory(?x, ?y), differentFrom(?y, ?z) $\rightarrow$ hasCategory(?x, ?z)
 
-Second rule, If a user has Purchased an ebook, and the ebook is part of a purchase, then we can imply that the user “HasPurchased” an ebook. \\
+Second rule, If a user makes a purchase and an ebook is part of the purchase, then we can imply that the user “HasPurchased” an ebook. \\
 User(?x), Purchase(?y), Ebook(?z), isMaking(?x, ?y), isPartOf(?z, ?y) $\rightarrow$ hasPurchased(?x, ?z)
 
 Third rule, If a user has rated an ebook, it implies that the user purchased the ebook as the users can't rate a book without purchasing one. \\
