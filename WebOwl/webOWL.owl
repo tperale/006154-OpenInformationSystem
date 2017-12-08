@@ -9,6 +9,7 @@
      xmlns:swrl="http://www.w3.org/2003/11/swrl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:gr="http://purl.org/goodrelations/v1#"
      xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/ebookStore.owl"/>
     
@@ -408,6 +409,20 @@
     
 
 
+    <!-- http://purl.org/goodrelations/v1#ProductOrService -->
+
+    <owl:Class rdf:about="http://purl.org/goodrelations/v1#ProductOrService"/>
+    
+
+
+    <!-- http://purl.org/goodrelations/v1#ProductOrServiceInstance -->
+
+    <owl:Class rdf:about="http://purl.org/goodrelations/v1#ProductOrServiceInstance">
+        <rdfs:subClassOf rdf:resource="http://purl.org/goodrelations/v1#ProductOrService"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/ebookStore.owl#AdminRole -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#AdminRole">
@@ -443,6 +458,7 @@
     <!-- http://www.semanticweb.org/ebookStore.owl#Ebook -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/ebookStore.owl#Ebook">
+        <rdfs:subClassOf rdf:resource="http://purl.org/goodrelations/v1#ProductOrService"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/ebookStore.owl#Publisher"/>
         <owl:disjointWith rdf:resource="http://www.semanticweb.org/ebookStore.owl#User"/>
     </owl:Class>
@@ -512,6 +528,7 @@
     <!-- http://www.semanticweb.org/ebookStore.owl#ebook_test1 -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ebookStore.owl#ebook_test1">
+        <rdf:type rdf:resource="http://purl.org/goodrelations/v1#ProductOrServiceInstance"/>
         <rdf:type rdf:resource="http://www.semanticweb.org/ebookStore.owl#Ebook"/>
         <ISBN rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">123</ISBN>
         <title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Seigneur des anneaux</title>
