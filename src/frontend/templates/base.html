@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+
+        {% load static %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        {% endblock %}
+        {% block head %}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url "home" %}">
+                        {% block brand %}{% endblock %}
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        {% block navbar %}{% endblock %}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% block navbar_right %}
+                            {% if user.is_authenticated %}
+                                {% url "admin:index" as admin_url %}
+                                {% if user.is_staff and admin_url %}
+                                    <li>
+                                        <a href="{{ admin_url }}">
+                                            <span class="glyphicon glyphicon-dashboard"></span>
+                                            Administration
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% url "logout" as logout_url %}
+                                {% if logout_url %}
+                                    <li>
+                                        <a href="{{ logout_url }}">
+                                            <span class="glyphicon glyphicon-log-out"></span>
+                                            Logout
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% else %}
+                                {% url "login" as login_url %}
+                                {% if login_url %}
+                                    <li>
+                                        <a href="{{ login_url }}">
+                                            <span class="glyphicon glyphicon-log-in"></span>
+                                            Login
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        {% endblock %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            {% block breadcrumbs_container %}
+                <ol class="breadcrumb">
+                    <li><a href="{% url "home" %}">Home</a></li>
+                    {% block breadcrumbs %}{% endblock %}
+                </ol>
+            {% endblock %}
+            {% for message in messages %}
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% block content %}
+                <h2>{{ title }}</h2>
+                <hr>
+            {% endblock %}
+        </div>
+
+        <br><hr>
+        <div class="container">
+            {% block footer %}
+                <p class="pull-right">
+                    Powered by <a href="">blabla</a>
+                </p>
+                <p>
+                    Copyright &copy; {% now "Y" %}
+                </p>
+            {% endblock %}
+        </div>
+
+        {% block scripts %}
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        {% endblock %}
+    </body>
+</html>
