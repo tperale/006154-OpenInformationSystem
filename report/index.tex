@@ -13,43 +13,148 @@
 
 \title{Open Information System: Conceptual schema}
 \author{Thomas Perale -- 0546990\\Maximilien Romain -- 0543411\\Felipe Rojas -- 0542569\\Lehal Sherik -- 0543118}
-\date{27 October 2017}
+\date{\today}
 
 \maketitle
 
 \section{Project subject}
 
-\begin{itemize}
-  \item Ebook shop
-  \item Various ebook types
-  \item Searchable
-  \begin{itemize}
-    \item Authors
-    \item ISBN
-    \item Edition
-    \item Title
-    \item Category
-    \item Year
-  \end{itemize}
-  \item Pricing
-\end{itemize}
+Our OWL have seven classes, Category, Ebook, Purchase, Publisher, Author, User, Publisher and Role.
 
-\section{Database usecases}
+The \emph{User} class represent both an admin or a customer of the platfrom, it have seven attributes:
 
 \begin{itemize}
-  \item The user register by choosing a “username” and a “password” and “email” if the username is not already taken in the database we create a new entry with the password and username or it’s taken we ask to choose another username.
-  \item The user login the website using username and password we check in the “User” table if the username exist if it exist we check if the password match.
-  \item When the user search for a book by default it try to match the user query with the title and the author name in the database.
-  \item The user can search for a book using more in deep parameter like the title, category, authors, price, isbn, etc… It try to match those parameters with the corresponding field in the “Book” table.
-  \item If an user find a book interesting they can buy it when it’s done the bought items are stored “Purchases” table.
-  \item User can filters books by categories, the database only retrieve the matching category when we filter categories.
-  \item Books are added on the database only by the admin it’s mandatory to fulfill every field to create a new book on the database.
+  \item userId
+  \item information
+  \item name
+  \item email
+  \item password
+  \item lastName
 \end{itemize}
+
+A \emph{User} of the system can either have the \emph{AdminRole} or just have the \emph{ClientRole},
+relation like \emph{hasAdminRole} or \emph{hasClientRole} from the \emph{User} domain in the
+\emph{AdminRole}/\emph{ClientRole} range.
+Both \emph{AdminRole}/\emph{ClientRole} are subclasses of \emph{Role} they are used to be more specific
+what permission a \emph{User} have but are characterized by the attributes:
+
+\begin{itemize}
+  \item roleId
+  \item description
+\end{itemize}
+
+Having one of these role imply the \emph{User} can interract with the \emph{Ebook} has shown with
+the relations \emph{hasPurchased} and \emph{manage}. \emph{Ebook} are the main component of the platform
+because it's simply what we sell on it. They are defined by:
+
+\begin{itemize}
+  \item ISBN
+  \item title
+  \item year
+  \item version
+\end{itemize}
+
+But also a remote \emph{Author} class bound to \emph{Ebook} by the \emph{hasWritten} class who have got the
+following attributes:
+
+\begin{itemize}
+  \item authorId
+  \item firstName
+  \item lastName
+\end{itemize}
+
+Also defined with the \emph{Publisher} class bound from \emph{Ebook} by the relation \emph{isPublishedBy},
+it is made of:
+
+\begin{itemize}
+  \item publisherId
+  \item name
+\end{itemize}
+
+And finally \emph{Categorie} class bound by \emph{Ebook} by the \emph{hasCategory} relation, categories are just
+a way to do search on ebooks by genre so the \emph{Category} class is defined by:
+
+\begin{itemize}
+  \item categoryId
+  \item description
+\end{itemize}
+
+To enable customers to read ebooks they must first create \emph{Purchase} as you can see in our ontology a \emph{User}
+make by the \emph{isMaking} relation \emph{Purchase}. \emph{Purchase} are a way to modelize ebooks the user paid to have
+for each \emph{Purchase} the user have to make a transaction and they can contain more than one \emph{Ebook} has we can
+see with the \emph{isPartOf} relation.
+
+Other privilege a customer have is to rate the \emph{Ebook} he bought modelized by the \emph{Rating} class.
+\emph{User} and \emph{Rating} are bound together by the \emph{hasRated} relation and make \emph{Ebook} in relation
+with it with \emph{hasRating}. The attributes for \emph{Rating} are:
+
+\begin{itemize}
+  \item ratingId
+  \item number
+\end{itemize}
+
+\section{Good Relations Description}
+
+This project implements the below three main classes of the Good Relations standards.
+
+ProductOrService: This class has two subclasses which are eBook and
+ProductOrServiceInstance(Good Relation Subclass). Making eBook a subclass of this standard
+we can deduce that an eBook is a product, and that it would have instances of it.
+
+PaymentMethod: Implementing this class with our Purchase class will be easier to standarized
+the payments methods of our project. This class has two payment methods, one is through the
+good relation individual named PayPal and other with a a subclass of payment method named
+PaymentMethodCreditCard that has two good relations individuals named MasterCard and Visa.
+
+DeliveryMethod: This class is also with the class Purchase, since when a client purchase an
+eBook, our system should Deliver our product, there is where Good Relations standard is
+implemented. For the Delivery Method we implement also a subclass of Good Relations standard
+named DeliveryModeDirectDownload since our product is eBooks.
+
+\section{Rules description}
+
+
+First rule, If the book belongs to a category and that category is also a subcategory to another
+category, it implies that the book belongs to both the main category and it's subcategory.\\
+
+Ebook(?x), Category(?y), Category(?z), subCategoryOf(?y, ?z), hasCategory(?x, ?y), differentFrom(?y, ?z) $\rightarrow$ hasCategory(?x, ?z)
+
+Is relevant because an ebook could have more than one cateogory and one of those categories could
+be a subcategory of one of these, which means that the ebook will have a category and a subcategory.
+Example- If a book belongs to "war" category and the "war" category belongs to "action" category,
+it is implied that the book belongs to both "war" and "action" categories.
+
+Second rule, If a user makes a purchase and an ebook is part of the purchase, then we can imply that
+the user “HasPurchased” an ebook. \\
+
+User(?x), Purchase(?y), Ebook(?z), isMaking(?x, ?y), isPartOf(?z, ?y) $\rightarrow$ hasPurchased(?x, ?z)
+
+This rule is relevant because a purchase needs at least one eBook to be purchased by an user, meaning
+that a user purchased an eBook.
+
+Third rule, If a user is rating an eBook or an eBook has been rated implies that the user hasPurchased an ebook.
+The rule is relevant because users who didn't purchase the book can't rate it.\\
+
+User(?x), Rating(?y), Ebook(?z), hasRated(?x, ?y), hasRating(?z, ?y) $\rightarrow$ hasPurchased(?x, ?z)
+
+This rule is relevant since only users that has purchased an eBook would be able to rate that eBook.
+
+The last rule implies that if a user has the role "admin", they can manage the ebooks database on the system.\\
+
+User(?admin), Ebook(?book), AdminRole(?role), hasAdminRole(?admin, ?role) $\rightarrow$ manage(?admin, ?book)
+
+This rule is relevant because an Admin should be the only type of user that can manage the eBooks.
 
 \section{ER Schema}
 
 \begin{center}
-  \makebox[\textwidth]{\includegraphics[width=\paperwidth]{er.png}}
+  \makebox[\textwidth]{\includegraphics[width=\paperwidth]{ER_graph.png}}
 \end{center}
+
+\section{WebOwl visualisation}
+\begin{center}
+  \makebox[\textwidth]{\includegraphics[width=\paperwidth]{webOwl.png}}
+\end{center}
+
 
 \end{document}
