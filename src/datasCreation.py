@@ -78,3 +78,14 @@ Customer3Purchase1 = UserBookPurchase(from_purchase = purchase6, ebook = eBook1)
 
 Customer3Purchase1.save()
 #0 books for Sherik
+
+# ----- Rating datas -----
+# Max - Thomas rate 5 for LOTR
+rateMaxLotr = Rating(ebook = eBook3, by = customer1, rate = 5)
+rateThomasLotr = Rating(ebook = eBook3, by = customer2, rate = 5)
+
+#Felipe rate 1 for LOTR
+rateFelipeLotr = Rating(ebook = eBook3, by = customer3, rate = 1)
+
+rateThomasPy = Rating(ebook = eBook1, by = customer2, rate = 3)
+rateMaxPy = Rating(ebook = eBook1, by = customer2, rate = 3)
