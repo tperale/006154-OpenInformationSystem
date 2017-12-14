@@ -228,3 +228,6 @@ TSWLatexianTemp*
 venv/
 *.sqlite3
 .db
+
+# Mac bullshit
+.DS_Store
