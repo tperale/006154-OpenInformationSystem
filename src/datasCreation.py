@@ -1,3 +1,11 @@
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "frontend.settings")
+
+import django
+django.setup()
+
+from user.models import Author, Purchase, UserBookPurchase
+from ebook.models import Category, BookCategory, Rating, Publisher, Ebook
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -26,19 +34,19 @@ publisher4.save()
 #Category
 
 #eBooks
-eBook1 = eBook(isbn = 9781491957615,title='Python for Data Analysis',version = 1,release='2017-09-01 00:00:00',author3,publisher1)
-eBook2 = eBook(isbn = 9781405519229,title='THE CASUAL VACANCY',version = 1,release='2012-09-01 00:00:00',author2,publisher2)
-eBook3 = eBook(isbn = 9780007322596,title='The Lord of the Rings: The Fellowship of the Ring, The Two Towers, The Return of the King',version = 1,release='2009-05-01 00:00:00',author1,publisher3)
+eBook1 = Ebook(isbn = 9781491957615,title='Python for Data Analysis',version = 1,release='2017-09-01 00:00:00',author=author3, publisher=publisher1)
+eBook2 = Ebook(isbn = 9781405519229,title='THE CASUAL VACANCY',version = 1,release='2012-09-01 00:00:00',author=author2, publisher=publisher2)
+eBook3 = Ebook(isbn = 9780007322596,title='The Lord of the Rings: The Fellowship of the Ring, The Two Towers, The Return of the King',version = 1,release='2009-05-01 00:00:00', author=author1, publisher=publisher3)
 
 eBook1.save()
 eBook2.save()
 eBook3.save()
 
 #customer
-customer1 = Customer(first_name = "Max", last_name = "Romain", email = "maxromai@ulb.ac.be", password = "12345")
-customer2 = Customer(first_name = "Thomas", last_name = "Peral", email = "tPeral@ulb.ac.be", password = "54321")
-customer3 = Customer(first_name = "Felipe", last_name = "Rojas", email = "frojas@vub.be", password = "rojas")
-customer4 = Customer(first_name = "Sherik", last_name = "Lehal", email = "slehal@vub.be", password = "lehal")
+customer1 = User.objects.create_user('mromain', 'maxromai@ulb.ac.be', '12345', first_name='Maximilien', last_name='Romain')
+customer2 = User.objects.create_user('tperale', 'tperale@ulb.ac.be', '54321')
+customer3 = User.objects.create_user('frojas', 'frojas@vub.ac.be', 'rojas')
+customer4 = User.objects.create_user('slehal', 'slehal@vub.ac.be', 'lehal')
 
 customer1.save()
 customer2.save()
@@ -103,16 +111,16 @@ rateThomasPy.save()
 rateMaxPy.save()
 
 # ----- Categoris Datas -----
-actionC = Category(name = "Action", subCatOf = null)
+actionC = Category(name = "Action")
 fantasticC = Category(name = "Fantastic", subCatOf = actionC)
 magicC = Category(name = "Magic", subCatOf = actionC)
 warC = Category(name = "War", subCatOf = actionC)
 medievalC = Category(name = "Mediaval", subCatOf = fantasticC)
 
-learningC = Category(name = "Learning", subCatOf = null)
+learningC = Category(name = "Learning")
 programmingC = Category(name = "Programming", subCatOf = learningC)
 
-romanC = Category(name = "Roman", subCatOf = null)
+romanC = Category(name = "Roman")
 
 actionC.save()
 fantasticC.save()
