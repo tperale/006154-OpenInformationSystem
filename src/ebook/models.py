@@ -4,10 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Category(models.Model):
     name = models.TextField(blank=False)
-
-class SubCategory(models.Model):
-    parent = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name = models.TextField(blank=False)
+    subCatOf = models.ForeignKey(Category, on_delete=models.CASCADE, null = True, blank = True)
 
 class BookCategory(models.Model):
     ebook = models.ForeignKey('Ebook', on_delete=models.CASCADE)

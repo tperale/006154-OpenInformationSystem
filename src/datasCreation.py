@@ -89,3 +89,32 @@ rateFelipeLotr = Rating(ebook = eBook3, by = customer3, rate = 1)
 
 rateThomasPy = Rating(ebook = eBook1, by = customer2, rate = 3)
 rateMaxPy = Rating(ebook = eBook1, by = customer2, rate = 3)
+
+# ----- Categoris Datas -----
+actionC = Category(name = "Action", subCatOf = null)
+fantasticC = Category(name = "Fantastic", subCatOf = actionC)
+magicC = Category(name = "Magic", subCatOf = actionC)
+warC = Category(name = "War", subCatOf = actionC)
+medievalC = Category(name = "Mediaval", subCatOf = fantasticC)
+
+learningC = Category(name = "Learning", subCatOf = null)
+programmingC = Category(name = "Programming", subCatOf = learningC)
+
+romanC = Category(name = "Roman", subCatOf = null)
+
+actionC.save()
+fantasticC.save()
+magicC.save()
+warC.save()
+medievalC.save()
+learningC.save()
+programmingC.save()
+romanC.save()
+
+BookCategory(ebook = eBook1, category = programmingC).save()
+
+BookCategory(ebook = eBook3, category = fantasticC).save()
+BookCategory(ebook = eBook3, category = warC).save()
+BookCategory(ebook = eBook3, category = medievalC).save()
+
+BookCategory(ebook = eBook2, category = romanC).save()
