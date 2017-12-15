@@ -50,6 +50,10 @@ purchase1 = Purchase(done = "14/12/17", by = customer1)
 purchase2 = Purchase(done = "10/12/17", by = customer1)
 purchase3 = Purchase(done = "02/06/17", by = customer1)
 
+purchase1.save()
+purchase2.save()
+purchase3.save()
+
 Customer1Purchase1 = UserBookPurchase(from_purchase = purchase1, ebook = eBook1)
 Customer1Purchase2 = UserBookPurchase(from_purchase = purchase2, ebook = eBook2)
 Customer1Purchase3 = UserBookPurchase(from_purchase = purchase3, ebook = eBook3)
@@ -73,6 +77,7 @@ Customer2Purchase2.save()
 
 #Purchase made by Felipe
 purchase6 = Purchase(done = "05/05/16", by = customer3)
+purchase6.save()
 
 Customer3Purchase1 = UserBookPurchase(from_purchase = purchase6, ebook = eBook1)
 
@@ -84,11 +89,18 @@ Customer3Purchase1.save()
 rateMaxLotr = Rating(ebook = eBook3, by = customer1, rate = 5)
 rateThomasLotr = Rating(ebook = eBook3, by = customer2, rate = 5)
 
+rateMaxLotr.save()
+rateThomasLotr.save()
+
 #Felipe rate 1 for LOTR
 rateFelipeLotr = Rating(ebook = eBook3, by = customer3, rate = 1)
+rateFelipeLotr.save()
 
 rateThomasPy = Rating(ebook = eBook1, by = customer2, rate = 3)
 rateMaxPy = Rating(ebook = eBook1, by = customer2, rate = 3)
+
+rateThomasPy.save()
+rateMaxPy.save()
 
 # ----- Categoris Datas -----
 actionC = Category(name = "Action", subCatOf = null)
