@@ -112,23 +112,30 @@ rateMaxPy.save()
 
 # ----- Categoris Datas -----
 actionC = Category(name = "Action")
+actionC.save()
+
 fantasticC = Category(name = "Fantastic", subCatOf = actionC)
+fantasticC.save()
+
 magicC = Category(name = "Magic", subCatOf = actionC)
+magicC.save()
+
 warC = Category(name = "War", subCatOf = actionC)
+warC.save()
+
 medievalC = Category(name = "Mediaval", subCatOf = fantasticC)
+medievalC.save()
+
 
 learningC = Category(name = "Learning")
+learningC.save()
+
 programmingC = Category(name = "Programming", subCatOf = learningC)
+programmingC.save()
+
 
 romanC = Category(name = "Roman")
 
-actionC.save()
-fantasticC.save()
-magicC.save()
-warC.save()
-medievalC.save()
-learningC.save()
-programmingC.save()
 romanC.save()
 
 BookCategory(ebook = eBook1, category = programmingC).save()
