@@ -1,0 +1,36 @@
+
+# get main Cat of one book
+SELECT DISTINCT ?nameC WHERE {
+  ?subC vocab:ebook_category_name ?nameC .
+  ?idC vocab:ebook_category_subCatOf_id ?subC .
+  ?cat vocab:ebook_bookcategory_category_id ?idC .
+  ?cat vocab:ebook_bookcategory_ebook_id ?isbn .
+  ?isbn vocab:ebook_ebook_title "The Lord of the Rings: The Fellowship of the Ring, The Two Towers, The Return of the King"
+}
+
+# get all the book of one main Category
+SELECT DISTINCT ?bookName WHERE {
+  ?subC vocab:ebook_category_name "Action" .
+  ?idC vocab:ebook_category_subCatOf_id ?subC .
+  ?cat vocab:ebook_bookcategory_category_id ?idC .
+  ?cat vocab:ebook_bookcategory_ebook_id ?isbn .
+  ?isbn vocab:ebook_ebook_title ?bookName
+}
+
+# All the books in one category that user liked
+SELECT ?name WHERE {
+
+  ?idC vocab:ebook_category_name ?name .
+
+  ?cat vocab:ebook_bookcategory_category_id ?idC .
+  ?cat vocab:ebook_bookcategory_ebook_id ?bookisbn .
+
+  ?idB vocab:ebook_rating_ebook_id ?bookisbn .
+
+  ?idB vocab:ebook_rating_rate 5 .
+  ?idB vocab:ebook_rating_by_id ?user .
+
+  ?user vocab:auth_user_id ?id .
+  ?user vocab:auth_user_username "tperale" 
+
+}

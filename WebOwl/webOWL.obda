@@ -1,0 +1,36 @@
+[PrefixDeclaration]
+:		http://www.semanticweb.org/ebookStore.owl#
+gr:		http://purl.org/goodrelations/v1#
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+swrl:		http://www.w3.org/2003/11/swrl#
+swrla:		http://swrl.stanford.edu/ontologies/3.3/swrla.owl#
+swrlb:		http://www.w3.org/2003/11/swrlb#
+ebookStore:	http://www.semanticweb.org/ebookStore.owl#
+
+[SourceDeclaration]
+sourceUri	datasource1
+connectionUrl	jdbc:mysql://localhost:8889/OIS
+username	root
+password	root
+driverClass	com.mysql.jdbc.Driver
+
+[MappingDeclaration] @collection [[
+mappingId	urn:MAPID-fb9d3e38417149b08006d6b989538c89
+target		ebookStore:{isbn} a ebookStore:Ebook , ebookStore:Author , ebookStore:Publisher ; ebookStore:title {title} . 
+source		SELECT isbn, title, author_id, publisher_id
+			FROM ebook_ebook
+
+mappingId	urn:MAPID-bfde0bf205bd4735b6d3cf553f96e2fa
+target		ebookStore:{id} a ebookStore:Rating , ebookStore:User , ebookStore:Ebook ; ebookStore:rating_number {rate} . 
+source		SELECT *
+			FROM ebook_rating
+
+mappingId	urn:MAPID-4c301ad8292a4affa24d7f425a18cd65
+target		ebookStore:{id} a ebookStore:Purchase , ebookStore:User , ebookStore:Ebook . 
+source		SELECT a.id, by_id, ebook_id FROM user_purchase a, user_userbookpurchase b WHERE a.id = b.from_purchase_id
+]]
+
