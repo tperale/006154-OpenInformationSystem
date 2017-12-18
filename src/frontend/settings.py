@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'ebook',
     'user',
     'sekizai',
+    'search_listview',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

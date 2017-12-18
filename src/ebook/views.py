@@ -2,15 +2,21 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from search_listview.list import SearchableListView
 
 from ebook.models import Ebook
 from ebook.forms import EbookForm
 
 from user.models import Purchase, UserBookPurchase
 
-class BookListView(ListView):
+class BookListView(SearchableListView):
     template_name = 'ebook_list.html'
     model = Ebook
+    paginate_by = 10
+    searchable_fields = ['title', 'isbn', 'author__first_name', 'author__last_name', 'publisher__name']
+    specifications = {
+        "title": "__icontains"
+    }
 
 
 @login_required

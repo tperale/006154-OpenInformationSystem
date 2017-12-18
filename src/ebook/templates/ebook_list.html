@@ -12,13 +12,9 @@
         <div class="col-lg-8 mx-auto">
             <h2 class="text-secondary text-uppercase mb-0">Book List</h2>
             <hr>
-            <!-- <div class="well well-sm">
-                <strong>Display</strong>
-                <div class="btn-group">
-                    <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>List</a>
-                    <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
-                </div>
-            </div> -->
+            <div class="row">
+                {% include "search_listview/search_and_page.html" %}
+            </div>
             <div id="products" class="row list-group">
                 {% for book in object_list %}
                     <div class="item col-xs-4 col-lg-4">
@@ -46,10 +42,14 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
     $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
     $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
 });
+</script> -->
+<script src="{% static 'search_listview/js/search_listview.js' %}"></script>
+<script>
+    start_search()
 </script>
 {% endblock content %}
