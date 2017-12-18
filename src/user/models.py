@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import User
 
 # class PayInformation(models.Model):
@@ -23,3 +24,7 @@ class Purchase(models.Model):
 class UserBookPurchase(models.Model):
     from_purchase = models.ForeignKey('Purchase', on_delete=models.CASCADE)
     ebook = models.ForeignKey('ebook.ebook', on_delete=models.CASCADE)
+
+admin.site.register(Author)
+admin.site.register(Purchase)
+admin.site.register(UserBookPurchase)

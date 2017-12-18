@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib import admin
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Publisher(models.Model):
@@ -25,3 +26,9 @@ class Rating(models.Model):
     ebook = models.ForeignKey(Ebook, on_delete=models.CASCADE)
     by = models.ForeignKey(User, on_delete=models.CASCADE)
     rate = models.IntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
+
+admin.site.register(Publisher)
+admin.site.register(Ebook)
+admin.site.register(Category)
+admin.site.register(BookCategory)
+admin.site.register(Rating)

@@ -15,7 +15,6 @@ class BookListView(ListView):
 
 @login_required
 def book_buy(request, slug):
-    print(slug)
     user = request.user
 
     ebook = Ebook.objects.get(isbn=slug)
