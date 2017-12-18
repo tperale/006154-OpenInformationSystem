@@ -8,4 +8,6 @@ class Welcome(TemplateView):
 
     def get_context_data(self, **kwargs):
         books = Ebook.objects.all()
-        return {'recommended': sample(list(books), 3)}
+        if len(books) > 3:
+            return {'recommended': sample(list(books), 3)}
+        return {'recommended': list(books)}
