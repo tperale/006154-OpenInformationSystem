@@ -34,9 +34,9 @@ publisher4.save()
 #Category
 
 #eBooks
-eBook1 = Ebook(isbn = 9781491957615,title='Python for Data Analysis',version = 1,release='2017-09-01 00:00:00',author=author3, publisher=publisher1)
-eBook2 = Ebook(isbn = 9781405519229,title='THE CASUAL VACANCY',version = 1,release='2012-09-01 00:00:00',author=author2, publisher=publisher2)
-eBook3 = Ebook(isbn = 9780007322596,title='The Lord of the Rings: The Fellowship of the Ring, The Two Towers, The Return of the King',version = 1,release='2009-05-01 00:00:00', author=author1, publisher=publisher3)
+eBook1 = Ebook(isbn = 9781491957615,title='Python for Data Analysis',version = 1,release='2017-09-01 00:00:00',author=author3, publisher=publisher1, price=12)
+eBook2 = Ebook(isbn = 9781405519229,title='THE CASUAL VACANCY',version = 1,release='2012-09-01 00:00:00',author=author2, publisher=publisher2, price=15)
+eBook3 = Ebook(isbn = 9780007322596,title='The Lord of the Rings: The Fellowship of the Ring, The Two Towers, The Return of the King',version = 1,release='2009-05-01 00:00:00', author=author1, publisher=publisher3, price=10)
 
 eBook1.save()
 eBook2.save()

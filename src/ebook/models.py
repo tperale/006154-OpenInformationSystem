@@ -13,6 +13,7 @@ class Ebook(models.Model):
     title = models.TextField(blank=False)
     version = models.IntegerField(default=1)
     release = models.DateTimeField(blank=False)
+    price = models.IntegerField(blank=False, default=20)
 
 class Category(models.Model):
     name = models.TextField(blank=False)
