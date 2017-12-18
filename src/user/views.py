@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
+from user.models import Purchase, UserBookPurchase
 
 def signup(request):
     if request.method == 'POST':
@@ -61,4 +62,10 @@ def profile(request):
     else:
         form = ProfileForm(current_info)
 
-    return render(request, 'profile.html', {'form': form})
+    purchases = Purchase.objects.filter(by=user)
+    books = []
+    for p in purchases:
+        for b in UserBookPurchase.objects.filter(from_purchase=p):
+            books.append(b.ebook)
+
+    return render(request, 'profile.html', {'form': form, 'purchases': books})

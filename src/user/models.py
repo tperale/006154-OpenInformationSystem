@@ -17,6 +17,8 @@ class Author(models.Model):
     first_name = models.TextField()
     last_name = models.TextField()
 
+
+
 class Purchase(models.Model):
     done = models.DateTimeField(auto_now=True)
     by = models.ForeignKey(User, on_delete=models.CASCADE)
