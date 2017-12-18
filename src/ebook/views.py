@@ -13,7 +13,8 @@ class BookListView(SearchableListView):
     template_name = 'ebook_list.html'
     model = Ebook
     paginate_by = 10
-    searchable_fields = ['title', 'isbn', 'author__first_name', 'author__last_name', 'publisher__name']
+    # searchable_fields = ['title', 'isbn', 'author__first_name', 'author__last_name', 'publisher__name']
+    searchable_fields = ['title']
     specifications = {
         "title": "__icontains"
     }
