@@ -10,6 +10,14 @@
 \usepackage{caption}
 \usepackage{amsmath}
 \usepackage{subcaption}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue}
+}
         % Set your language (you can change the language for each code-block optionally)
 %\usepackage[top=1in,bottom=1in]{geometry}
 
@@ -19,9 +27,9 @@
 	\includegraphics[width=0.8\textwidth]{logo.eps}\par\vspace{1cm}
 	{\scshape\LARGE Vrije Universiteit Brussel\par}
 	\vspace{1cm}
-	{\scshape\Large Open Information Systems\par}
+	{\scshape\Large Open Information Systems 2017 - 2018\par}
 	\vspace{1.5cm}
-	{\huge\bfseries Final report\par}
+	{\huge\bfseries Final report - Group 8\par}
 	\vspace{2cm}
 	{\Large\itshape ROMAIN Maximilien - 0543411\\ ROJAS Felipe - ???\\PERALE Thomas - ???\\ LEHAL Sherik - ???\par}
 	\vfill
@@ -34,5 +42,52 @@
 
 \section{Section 1}
 
+\section{Rules description}
+First rule : If a book belongs to a category and that category is also a subcategory to another
+category, it implies that the book belongs to both the main category and its subcategory.
+
+Ebook(?x), Category(?y), Category(?z), subCategoryOf(?y, ?z), hasCategory(?x, ?y), differentFrom(?y, ?z) $\rightarrow$ hasCategory(?x, ?z)
+
+This rule is relevant because an ebook could have more than one category and one of those categories could
+be a subcategory of one of these, which means that the ebook will have a category and a subcategory.
+Example : if a book belongs to \textit{"war"} category and the \textit{"war"} category belongs to \textit{"action"} category,
+it is implied that the book belongs to both "war" and "action" categories.\\
+
+Second rule : if a user makes a purchase and an ebook is part of the purchase, then we can imply that
+the user \textit{"HasPurchased"} an ebook. 
+
+User(?x), Purchase(?y), Ebook(?z), isMaking(?x, ?y), isPartOf(?z, ?y) $\rightarrow$ hasPurchased(?x, ?z)
+
+This rule is relevant because a purchase needs at least one ebook purchased by the user, meaning
+that a user purchased an eBook.\\
+
+Third rule : if a user is rating an eBook or an eBook has been rated implies that the user hasPurchased an ebook.
+The rule is relevant because users who did not purchase books cannot rate them.
+
+User(?x), Rating(?y), Ebook(?z), hasRated(?x, ?y), hasRating(?z, ?y) $\rightarrow$ hasPurchased(?x, ?z)
+
+This rule is relevant since only users that has purchased an eBook would be able to rate that eBook.\\
+
+The last rule implies that if a user has the role "admin", they can manage the ebooks database on the system.
+
+User(?admin), Ebook(?book), AdminRole(?role), hasAdminRole(?admin, ?role) $\rightarrow$ manage(?admin, ?book)
+
+This rule is relevant because an admin should be the only type of user that can manage eBooks.
+
+\section{Sparql endpoint \& Mapping}
+To be able to implement the sparql endpoint in the project, we used the tool \textit{D2RQ}\footnote{\url{http://d2rq.org}}. D2RQ is Open Source software proposes a language of association between ontologies and databases, and an endpoint \textit{Sparql} allowing query the database through \textit{Sparql} queries. We used for the project, one of the specifications of the tool, allowing to map the ontology to the database directly by using the database, creating a mapping file. "This file called the default mapping, maps each table to a new RDFS class that is based on the table's name, and maps each column to a property based on the column's name"\footnote{\url{http://d2rq.org/generate-mapping}}
+
+This mapping can be done by using the following command in the D2RQ repertory :
+
+\begin{lstlisting}[language=bash]
+./generate-mapping -u user -p password -o mapping.ttl 
+	jdbc:mysql://localhost:PORT/databaseName
+\end{lstlisting}
+
+It is then possible to run the server to be able to use the provided Sparql endpoint and to make queries with the Sparql syntax providing by the mapping.
+
+\begin{lstlisting}
+./d2r-server mapping.ttl
+\end{lstlisting}
 
 \end{document}
