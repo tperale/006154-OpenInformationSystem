@@ -1,21 +1,24 @@
 MOTIVATE THE DESIGN BEHIND YOUR CONCEPTUAL SCHEMA
 
-The main objective of the project was to create an online bookstore, where the users can buy and rate ebooks from
+The main objective of the project was to create an online ebookstore, where the users can buy and rate ebooks from
 the database which has sorted the books according to their categories.
 
-All ebooks are identified by their ISBN number. The books also have other attributes such as Year, Title, Publisher which 
+All ebooks are identified by their ISBN number. The ebooks class (which is a superclass to Publisher, Author, Category 
+classes) also has other attributes such as Year, Title, Publisher which 
 is a different class linked to the main ebook class by "isPublishedby" relation. The ebook class also has a relation
-to the Category class, which allows users to search different books from different categories. It is also possible to
-have subcategories inside another category. The author class contains the name, ID of the authors, linked to the ebook
+to the Category subclass, which allows users to search different books from different categories. It is also possible to
+have subcategories inside another category. The author subclass to the ebook class contains the name and ID of the authors.
 class. This further adds more to detail the ebooks.
 
-The user class contains various attribues such as the user ID, name, Payment method etc. This class is linked to the
+The user class contains various attribues such as the user ID, name, Payment method, password, email. This class is linked to the
 ebook and Purchased class. The purchase class exists to keep a history of all purchases made from the database.
-The user class also has an attribute, a role class. It specifies wheather the user is an admin, or a normal user.
+The user class also has an attribute, a role subclass. It specifies wheather the user is an admin, or a normal user.
 An admin is able to manage all the data. 
 
 The rating class is linked to the ebook class and contains all the rating given to books by the users, after they have
 purchased the book.
 
 In short, this allows us to create a system, where the users can login and purchase a book. The user can also check
-history of their purchases. After purchasing, the user can then rate the book to review it.
+history of their purchases. After purchasing, the user can then rate the book to review it. We wanted to create an
+ebook store that was easy to use, but had various additional functions to it. A website that has a good platform to build
+upon for further improvements.
