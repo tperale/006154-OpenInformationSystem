@@ -31,7 +31,7 @@
 	\vspace{1.5cm}
 	{\huge\bfseries Final report - Group 8\par}
 	\vspace{2cm}
-	{\Large\itshape ROMAIN Maximilien - 0543411\\ (maxromai@ulb.ac.be)\\ ROJAS Felipe - ???\\ (@vub.be)\\PERALE Thomas - ???\\ (@ulb.ac.be)\\ LEHAL Sherik - ???\\ (@vub.be)\par}
+	{\Large\itshape ROMAIN Maximilien - 0543411\\ (maxromai@ulb.ac.be)\\ ROJAS Felipe - 0542569\\ (felipe.rojas@vub.be)\\PERALE Thomas - 0546990\\ (thomas.perale@vub.be)\\ LEHAL Sherik - 0543118\\ (sherik.lehal@vub.be)\par}
 	\vfill
 
 % Bottom of the page
@@ -40,8 +40,39 @@
 
 \newpage
 
-\section{Section 1}
 
+\section{Teamwork}
+How did you divide and manage the workload inside your team
+We tried to divide the workload equaly for everyone and doing a lot of teamwork to satisfy the requirements of the project also with a lot of communication through Facebook
+\section{ER Diagram}
+2. Motivate the design behind your conceptual schema
+The main objective of the project was to create an online bookstore, where the users can buy and rate ebooks from the database which has sorted the books according to their categories.
+All ebooks are identified by their ISBN number. The books also have other attributes such as Year, Title, Publisher which is a different class linked to the main ebook class by "isPublishedby" relation. The ebook class also has a relation to the Category class, which allows users to search different books from different categories. It is also possible to have subcategories inside another category. The author class contains the name, ID of the authors, linked to the ebook class. This further adds more to detail the ebooks.
+The user class contains various attribues such as the user ID, name, Payment method etc. This class is linked to the ebook and Purchased class. The purchase class exists to keep a history of all purchases made from the database. The user class also has an attribute, a role class. It specifies wheather the user is an admin, or a normal user. An admin is able to manage all the data. 
+The rating class is linked to the ebook class and contains all the rating given to books by the users, after they havepurchased the book.
+In short, this allows us to create a system, where the users can login and purchase a book. The user can also check history of their purchases. After purchasing, the user can then rate the book to review it.
+
+\section{Ontologies}
+3. Motivate the design your ontologies? 
+As our application was relatively straightforward, essentially allowing only ebook purchases, the ontology was also straightforward in seeking to focus on the main elements of our application: its buyers and ebooks. As a result, our ontology has mainly focused on developing interactions between users and ebooks. It can be seen by the integration of relationships between the user and books to verify that he has bought it or a relationship to link a user to the ratings he gives to ebooks. The ebooks, the other main element of ontology, is surrounded by other classes with whom it has relations of belonging, especially authors, publishers and categories. These classes make sense because they allow users of our ontology to use them to search and filter specific ebooks among a variety of attributes that we are used to see in similar applications.
+
+\section{Good Relations}
+4. Explain how you modified your conceptual schema and ontologies in order to adapt your system to the Good Relations standard and ensure consistency?
+In order to adapt the system to the Good Relations standard and ensure the consistency we select three different classes of this standard, explained below. in which we didn’t have to modify a lot our conceptual schema and ontologies, so with ensure our consistency by just adding this classes and connecting them to the ones that already exist, which are eBook and Purchase(explained below).
+
+ProductOrService: This class has two subclasses which are eBook and
+ProductOrServiceInstance(Good Relation Subclass). Making eBook a subclass of this standard
+we can deduce that an eBook is a product, and that it would have instances of it.
+
+PaymentMethod: Implementing this class with our Purchase class will be easier to standarized
+the payments methods of our project. This class has two payment methods, one is through the
+good relation individual named PayPal and other with a a subclass of payment method named
+PaymentMethodCreditCard that has two good relations individuals named MasterCard and Visa.
+
+DeliveryMethod: This class is also with the class Purchase, since when a client purchase an
+eBook, our system should Deliver our product, there is where Good Relations standard is
+implemented. For the Delivery Method we implement also a subclass of Good Relations standard
+named DeliveryModeDirectDownload since our product is eBooks.
 \section{Rules description}
 First rule : If a book belongs to a category and that category is also a subcategory to another
 category, it implies that the book belongs to both the main category and its subcategory.
@@ -89,5 +120,14 @@ It is then possible to run the server to be able to use the provided Sparql endp
 \begin{lstlisting}
 ./d2r-server mapping.ttl
 \end{lstlisting}
+
+\section{ER Diagram}
+\begin{center}
+  \makebox[\textwidth]{\includegraphics[width=\paperwidth]{ER_graph.png}}
+\end{center}
+\section{WebOwl}
+\begin{center}
+  \makebox[\textwidth]{\includegraphics[width=\paperwidth]{webOwl.png}}
+\end{center}
 
 \end{document}
