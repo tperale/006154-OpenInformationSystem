@@ -10,6 +10,8 @@
 \usepackage{caption}
 \usepackage{amsmath}
 \usepackage{subcaption}
+\usepackage{color}
+
 
 \usepackage{xcolor}
 \usepackage{listings}
@@ -23,19 +25,19 @@
 
 \begin{document}
 \begin{titlepage}
-	\centering
-	\includegraphics[width=0.8\textwidth]{logo.eps}\par\vspace{1cm}
-	{\scshape\LARGE Vrije Universiteit Brussel\par}
-	\vspace{1cm}
-	{\scshape\Large Open Information Systems 2017 - 2018\par}
-	\vspace{1.5cm}
-	{\huge\bfseries Final report - Group 8\par}
-	\vspace{2cm}
-	{\Large\itshape ROMAIN Maximilien - 0543411\\ (maxromai@ulb.ac.be)\\ ROJAS Felipe - 0542569\\ (felipe.rojas@vub.be)\\PERALE Thomas - 0546990\\ (thomas.perale@vub.be)\\ LEHAL Sherik - 0543118\\ (sherik.lehal@vub.be)\par}
-	\vfill
+    \centering
+    \includegraphics[width=0.8\textwidth]{logo.eps}\par\vspace{1cm}
+    {\scshape\LARGE Vrije Universiteit Brussel\par}
+    \vspace{1cm}
+    {\scshape\Large Open Information Systems 2017 - 2018\par}
+    \vspace{1.5cm}
+    {\huge\bfseries Final report - Group 8\par}
+    \vspace{2cm}
+    {\Large\itshape ROMAIN Maximilien - 0543411\\ (maxromai@ulb.ac.be)\\ ROJAS Felipe - 0542569\\ (felipe.rojas@vub.be)\\PERALE Thomas - 0546990\\ (thomas.perale@vub.be)\\ LEHAL Sherik - 0543118\\ (sherik.lehal@vub.be)\par}
+    \vfill
 
 % Bottom of the page
-	{\large \today\par}
+    {\large \today\par}
 \end{titlepage}
 
 \newpage
@@ -112,13 +114,75 @@ This mapping can be done by using the following command in the D2RQ repertory :
 
 \begin{lstlisting}[language=bash]
 ./generate-mapping -u user -p password -o mapping.ttl 
-	jdbc:mysql://localhost:PORT/databaseName
+    jdbc:mysql://localhost:PORT/databaseName
 \end{lstlisting}
 
 It is then possible to run the server to be able to use the provided Sparql endpoint and to make queries with the Sparql syntax providing by the mapping.
 
 \begin{lstlisting}
 ./d2r-server mapping.ttl
+\end{lstlisting}
+
+\subsection{Mapping discussion}
+Since we did not use the mapping from the ontology in our project, we will discuss some mapping we could have done for the mapping.
+
+\subsubsection{D2RQ Mapping tool}
+D2RQ provide a tool to map the ontology / database by hand for every classes, attibutes or relation from the ontology. This tool is the \textit{D2RQ Mapping Language} allowing more control over the mapping.
+
+There is a example for the Ebook Class and the attributes \textit{author} and \textit{title} : 
+
+\begin{lstlisting}
+@prefix : <http://www.example.com/ontologies/myontology> .
+# Namespace of the mapping file; does not appear in mapped data
+@prefix map: <file:///Users/d2r/mapping.ttl#> .
+
+# Other namespaces
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+map:Ebook a d2rq:ClassMap;
+    d2rq:dataStorage map:Database;
+    d2rq:class :Ebook;
+    .
+map:title a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Ebook;
+    d2rq:property :title;
+    d2rq:column "Ebook.Title";
+    d2rq:datatype xsd:string;
+    .
+map:author a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Ebook;
+    d2rq:property :author;
+    d2rq:column "Ebook.Author"; 
+    d2rq:datatype xsd:string;
+    .
+\end{lstlisting}
+
+\subsubsection{Protégé Mapping}
+The regular way to map the ontology to the database is to use protégé with the ontop reasoner.
+
+Let's take the example of mapping the Ebook Class from the ontology with the Ebook Table from the database. We want for example to be able to retrieve all the information from the database for the Ebook. We then have to need the SQL query to the Triples Template using the ontop mapping editor.
+
+We then need to map the SQL query that retrieve all the information from the Ebook table : 
+\begin{lstlisting}
+    SELECT isbn, title, author_id, publisher_id
+    FROM ebook_eBook
+\end{lstlisting}
+
+With the Target syntax in protégé :\\
+
+\noindent ebookStore:\{isbn\} a ebookStore:\textcolor{yellow}{Ebook} , ebookStore:\textcolor{yellow}{Author} , ebookStore:\textcolor{yellow}{Publisher} ; ebookStore:\textcolor{green}{title} \{title\} .\\
+
+We have therefore associated the attributes from the database to the rdf triple. \textit{Author} and \textit{Publisher} are in yellow because they are referecing to another Class. We can then make the SPARQL query : 
+
+\begin{lstlisting}
+PREFIX : <http://www.semanticweb.org/ebookStore.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?p ?title ?author ?publisher
+WHERE {
+  ?p a :Ebook ; :title ?title ; :Author ?author ; 
+  :Publisher ?publisher .
+}   
 \end{lstlisting}
 
 \section{ER Diagram}
