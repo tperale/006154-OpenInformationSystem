@@ -46,7 +46,6 @@
 \section{Teamwork}
 We tried to divide the workload equaly for everyone and doing a lot of teamwork to satisfy the requirements of the project also with a lot of communication through Facebook
 \section{ER Diagram}
-2. Motivate the design behind your conceptual schema
 The main objective of the project was to create an online bookstore, where the users can buy and rate ebooks from the database which has sorted the books according to their categories.
 All ebooks are identified by their ISBN number. The books also have other attributes such as Year, Title, Publisher which is a different class linked to the main ebook class by "isPublishedby" relation. The ebook class also has a relation to the Category class, which allows users to search different books from different categories. It is also possible to have subcategories inside another category. The author class contains the name, ID of the authors, linked to the ebook class. This further adds more to detail the ebooks.
 The user class contains various attribues such as the user ID, name, Payment method etc. This class is linked to the ebook and Purchased class . The purchase class as a weak entity, since it will need the foreign keys of class user and class eBook to create his primary key, exists to keep a history of all purchases made from the database. The user class also has an attribute, a role class. It specifies wheather the user is an admin, or a normal user. An admin is able to manage all the data. 
