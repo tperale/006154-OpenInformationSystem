@@ -10,6 +10,8 @@
 \usepackage{caption}
 \usepackage{amsmath}
 \usepackage{subcaption}
+\usepackage{color}
+
 
 \usepackage{xcolor}
 \usepackage{listings}
@@ -23,25 +25,52 @@
 
 \begin{document}
 \begin{titlepage}
-	\centering
-	\includegraphics[width=0.8\textwidth]{logo.eps}\par\vspace{1cm}
-	{\scshape\LARGE Vrije Universiteit Brussel\par}
-	\vspace{1cm}
-	{\scshape\Large Open Information Systems 2017 - 2018\par}
-	\vspace{1.5cm}
-	{\huge\bfseries Final report - Group 8\par}
-	\vspace{2cm}
-	{\Large\itshape ROMAIN Maximilien - 0543411\\ (maxromai@ulb.ac.be)\\ ROJAS Felipe - ???\\ (@vub.be)\\PERALE Thomas - ???\\ (@ulb.ac.be)\\ LEHAL Sherik - ???\\ (@vub.be)\par}
-	\vfill
+    \centering
+    \includegraphics[width=0.8\textwidth]{logo.eps}\par\vspace{1cm}
+    {\scshape\LARGE Vrije Universiteit Brussel\par}
+    \vspace{1cm}
+    {\scshape\Large Open Information Systems 2017 - 2018\par}
+    \vspace{1.5cm}
+    {\huge\bfseries Final report - Group 8\par}
+    \vspace{2cm}
+    {\Large\itshape ROMAIN Maximilien - 0543411\\ (maxromai@ulb.ac.be)\\ ROJAS Felipe - 0542569\\ (felipe.rojas@vub.be)\\PERALE Thomas - 0546990\\ (thomas.perale@vub.be)\\ LEHAL Sherik - 0543118\\ (sherik.lehal@vub.be)\par}
+    \vfill
 
 % Bottom of the page
-	{\large \today\par}
+    {\large \today\par}
 \end{titlepage}
 
 \newpage
 
-\section{Section 1}
 
+\section{Teamwork}
+We tried to divide the workload equaly for everyone and doing a lot of teamwork to satisfy the requirements of the project also with a lot of communication through Facebook
+\section{ER Diagram}
+The main objective of the project was to create an online bookstore, where the users can buy and rate ebooks from the database which has sorted the books according to their categories.
+All ebooks are identified by their ISBN number. The books also have other attributes such as Year, Title, Publisher which is a different class linked to the main ebook class by "isPublishedby" relation. The ebook class also has a relation to the Category class, which allows users to search different books from different categories. It is also possible to have subcategories inside another category. The author class contains the name, ID of the authors, linked to the ebook class. This further adds more to detail the ebooks.
+The user class contains various attribues such as the user ID, name, Payment method etc. This class is linked to the ebook and Purchased class . The purchase class as a weak entity, since it will need the foreign keys of class user and class eBook to create his primary key, exists to keep a history of all purchases made from the database. The user class also has an attribute, a role class. It specifies wheather the user is an admin, or a normal user. An admin is able to manage all the data. 
+The rating class is linked to the ebook class and contains all the rating given to books by the users, after they havepurchased the book.
+In short, this allows us to create a system, where the users can login and purchase a book. The user can also check history of their purchases. After purchasing, the user can then rate the book to review it.
+
+\section{Ontologies}
+As our application was relatively straightforward, essentially allowing only ebook purchases, the ontology was also straightforward in seeking to focus on the main elements of our application: its buyers and ebooks. As a result, our ontology has mainly focused on developing interactions between users and ebooks. It can be seen by the integration of relationships between the user and books to verify that he has bought it or a relationship to link a user to the ratings he gives to ebooks. The ebooks, the other main element of ontology, is surrounded by other classes with whom it has relations of belonging, especially authors, publishers and categories. These classes make sense because they allow users of our ontology to use them to search and filter specific ebooks among a variety of attributes that we are used to see in similar applications.
+
+\section{Good Relations}
+In order to adapt the system to the Good Relations standard and ensure the consistency we select three different classes of this standard, explained below. in which we didn’t have to modify a lot our conceptual schema and ontologies, so with ensure our consistency by just adding this classes and connecting them to the ones that already exist, which are eBook and Purchase(explained below).
+
+ProductOrService: This class has two subclasses which are eBook and
+ProductOrServiceInstance(Good Relation Subclass). Making eBook a subclass of this standard
+we can deduce that an eBook is a product, and that it would have instances of it.
+
+PaymentMethod: Implementing this class with our Purchase class will be easier to standarized
+the payments methods of our project. This class has two payment methods, one is through the
+good relation individual named PayPal and other with a a subclass of payment method named
+PaymentMethodCreditCard that has two good relations individuals named MasterCard and Visa.
+
+DeliveryMethod: This class is also with the class Purchase, since when a client purchase an
+eBook, our system should Deliver our product, there is where Good Relations standard is
+implemented. For the Delivery Method we implement also a subclass of Good Relations standard
+named DeliveryModeDirectDownload since our product is eBooks.
 \section{Rules description}
 First rule : If a book belongs to a category and that category is also a subcategory to another
 category, it implies that the book belongs to both the main category and its subcategory.
@@ -81,7 +110,7 @@ This mapping can be done by using the following command in the D2RQ repertory :
 
 \begin{lstlisting}[language=bash]
 ./generate-mapping -u user -p password -o mapping.ttl 
-	jdbc:mysql://localhost:PORT/databaseName
+    jdbc:mysql://localhost:PORT/databaseName
 \end{lstlisting}
 
 It is then possible to run the server to be able to use the provided Sparql endpoint and to make queries with the Sparql syntax providing by the mapping.
@@ -89,5 +118,76 @@ It is then possible to run the server to be able to use the provided Sparql endp
 \begin{lstlisting}
 ./d2r-server mapping.ttl
 \end{lstlisting}
+
+\subsection{Mapping discussion}
+Since we did not use the mapping from the ontology in our project, we will discuss some mapping we could have done for the mapping.
+
+\subsubsection{D2RQ Mapping tool}
+D2RQ provide a tool to map the ontology / database by hand for every classes, attibutes or relation from the ontology. This tool is the \textit{D2RQ Mapping Language} allowing more control over the mapping.
+
+There is a example for the Ebook Class and the attributes \textit{author} and \textit{title} : 
+
+\begin{lstlisting}
+@prefix : <http://www.example.com/ontologies/myontology> .
+# Namespace of the mapping file; does not appear in mapped data
+@prefix map: <file:///Users/d2r/mapping.ttl#> .
+
+# Other namespaces
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+map:Ebook a d2rq:ClassMap;
+    d2rq:dataStorage map:Database;
+    d2rq:class :Ebook;
+    .
+map:title a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Ebook;
+    d2rq:property :title;
+    d2rq:column "Ebook.Title";
+    d2rq:datatype xsd:string;
+    .
+map:author a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Ebook;
+    d2rq:property :author;
+    d2rq:column "Ebook.Author"; 
+    d2rq:datatype xsd:string;
+    .
+\end{lstlisting}
+
+\subsubsection{Protégé Mapping}
+The regular way to map the ontology to the database is to use protégé with the ontop reasoner.
+
+Let's take the example of mapping the Ebook Class from the ontology with the Ebook Table from the database. We want for example to be able to retrieve all the information from the database for the Ebook. We then have to need the SQL query to the Triples Template using the ontop mapping editor.
+
+We then need to map the SQL query that retrieve all the information from the Ebook table : 
+\begin{lstlisting}
+    SELECT isbn, title, author_id, publisher_id
+    FROM ebook_eBook
+\end{lstlisting}
+
+With the Target syntax in protégé :\\
+
+\noindent ebookStore:\{isbn\} a ebookStore:\textcolor{yellow}{Ebook} , ebookStore:\textcolor{yellow}{Author} , ebookStore:\textcolor{yellow}{Publisher} ; ebookStore:\textcolor{green}{title} \{title\} .\\
+
+We have therefore associated the attributes from the database to the rdf triple. \textit{Author} and \textit{Publisher} are in yellow because they are referecing to another Class. We can then make the SPARQL query : 
+
+\begin{lstlisting}
+PREFIX : <http://www.semanticweb.org/ebookStore.owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?p ?title ?author ?publisher
+WHERE {
+  ?p a :Ebook ; :title ?title ; :Author ?author ; 
+  :Publisher ?publisher .
+}   
+\end{lstlisting}
+
+\section{ER Diagram}
+\begin{center}
+  \makebox[\textwidth]{\includegraphics[width=\paperwidth]{ER_graph.png}}
+\end{center}
+\section{WebOwl}
+\begin{center}
+  \makebox[\textwidth]{\includegraphics[width=\paperwidth]{finalWeb.png}}
+\end{center}
 
 \end{document}
