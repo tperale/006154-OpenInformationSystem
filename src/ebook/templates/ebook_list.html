@@ -21,13 +21,12 @@
                         <div class="thumbnail">
                             <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
                             <div class="caption">
-                                <h4 class="group inner list-group-item-heading">{{ book.title }}</h4>
+                                <h4 class="group inner list-group-item-heading">
+                                  <a href="{% url 'ebook_detail' slug=book.isbn %}">{{ book.title }}</a>
+                                </h4>
                                 <p class="group inner list-group-item-text">
                                   {{ book.author.first_name }} {{ book.author.last_name }}
                                 </p>
-                                <!-- <p class="group inner list-group-item-text">
-                                  {{ book.description }}
-                                </p> -->
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
                                         <p class="lead">{{ book.price }} €</p>

@@ -59,6 +59,10 @@ section {
   padding: 1rem 1.75rem;
   font-size: 1.25rem; }
 
+.btn-full {
+  width: 100%;
+}
+
 .btn-social {
   width: 3.25rem;
   height: 3.25rem;

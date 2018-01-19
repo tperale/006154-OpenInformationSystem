@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView
-from django.shortcuts import redirect
+from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from search_listview.list import SearchableListView
 
@@ -15,10 +15,19 @@ class BookListView(SearchableListView):
     paginate_by = 10
     # searchable_fields = ['title', 'isbn', 'author__first_name', 'author__last_name', 'publisher__name']
     searchable_fields = ['title']
-    specifications = {
-        "title": "__icontains"
-    }
+    # specifications = {
+    #     "title": "__icontains"
+    # }
 
+class BookDetailView(SearchableListView):
+    template_name = 'ebook_detail.html'
+    model = Ebook
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = get_object_or_404(Ebook, isbn=self.kwargs.get('slug', None))
+        context['ebook'] = obj
+        return context
 
 @login_required
 def book_buy(request, slug):
