@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Avg
 
 class Publisher(models.Model):
     name = models.TextField()
@@ -14,6 +15,17 @@ class Ebook(models.Model):
     version = models.IntegerField(default=1)
     release = models.DateTimeField(blank=False)
     price = models.IntegerField(blank=False, default=20)
+
+    @property
+    def rates(self):
+        rates = Rating.objects.filter(ebook=self)
+        if not len(rates):
+            return 0
+        ag = 0
+        for x in rates:
+            ag += x.rate
+        return (ag / len(rates))
+        # rate = Rating.objects.filter(ebook=self).aggregate(Avg('rate'))['rate__avg']
 
 class Category(models.Model):
     name = models.TextField(blank=False)

@@ -17,14 +17,28 @@
                   <img class="group list-group-image" src="http://placehold.it/300x500/000/fff" alt="" />
               </div>
               <div class="item col-xs-12 col-lg-6">
-                <!-- TODO ratings -->
-                <p class="group inner list-group-item-text">
+                <form action="{% url 'ebook_rate' slug=ebook.isbn %}" method="post" class="wrapper">
+                  {% csrf_token %}
+                  {{ ebook.rates }} / 5
+                  <input name="rate" type="submit" id="st5" value="5" />
+                  <label for="st5"></label>
+                  <input name="rate" type="submit" id="st4" value="4" />
+                  <label for="st4"></label>
+                  <input name="rate" type="submit" id="st3" value="3" />
+                  <label for="st3"></label>
+                  <input name="rate" type="submit" id="st2" value="2" />
+                  <label for="st2"></label>
+                  <input name="rate" type="submit" id="st1" value="1" />
+                  <label for="st1"></label>
+                </form>
+
+                <div class="row">
                   By (author) {{ ebook.author.first_name }} {{ ebook.author.last_name }}
-                </p>
-                <p class="group inner list-group-item-text">
+                </div>
+                <div class="row">
                   {{ ebook.description }}
-                </p>
-                <p style="font-size: 40px !important" class="lead">{{ ebook.price }} €</p>
+                </div>
+                <div style="font-size: 40px !important" class="lead">{{ ebook.price }} €</div>
                 <hr>
                 <p style="font-size: 26px; font-weight: bold;">
                   <i class="fa fa-rocket" aria-hidden="true"></i>
@@ -36,7 +50,7 @@
                 </p>
                 <p>
                   {% if user.is_authenticated %}
-                    <a class="btn btn-success btn-xl btn-full" href="{% url 'ebook_purchase' slug=book.isbn %}">Buy</a>
+                    <a class="btn btn-success btn-xl btn-full" href="{% url 'ebook_purchase' slug=ebook.isbn %}">Buy</a>
                   {% else %}
                     <a class="btn btn-success btn-xl btn-full" href="{% url 'login' %}">Buy</a>
                   {% endif %}

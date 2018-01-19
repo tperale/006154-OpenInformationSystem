@@ -4,7 +4,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from search_listview.list import SearchableListView
 
-from ebook.models import Ebook
+from ebook.models import Ebook, Rating
 from ebook.forms import EbookForm
 
 from user.models import Purchase, UserBookPurchase
@@ -50,5 +50,23 @@ def book_buy(request, slug):
         link = UserBookPurchase(from_purchase=purchase, ebook=ebook)
         link.save()
 
+
+    return redirect('ebook')
+
+@login_required
+def book_rate(request, slug):
+    if request.method == 'POST':
+        rating = request.POST.getlist('rate')
+        rating = rating[0]
+        user = request.user
+        ebook = Ebook.objects.get(isbn=slug)
+
+        rate = Rating.objects.filter(by=user, ebook=ebook)
+
+        if len(rate):
+            rate.update(rate=rating)
+        else:
+            rate = Rating(by=user, ebook=ebook, rate=rating)
+            rate.save()
 
     return redirect('ebook')
