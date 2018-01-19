@@ -27,163 +27,158 @@
         {% endblock %}
     </head>
     <body>
-        <!-- <div class="navbar navbar-default navbar-static-top" role="navigation"> -->
-            <!-- <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url "home" %}">
-                    {% block brand %}{% endblock %}
-                </a>
-            </div> -->
+      <nav class="navbar navbar-default navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand js-scroll-trigger" href="/">Ebook Depo</a>
+          </div>
+        </div>
+        <!-- <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button> -->
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item mx-0 mx-lg-1">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'ebook' %}">Ebooks list</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+                <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/#contact">Contact</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'profile' %}">Profile</a>
+                </li>
+                {% url "admin:index" as admin_url %}
+                {% if user.is_staff and admin_url %}
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a href="{{ admin_url }}">
+                            <span class="glyphicon glyphicon-dashboard"></span>
+                            Administration
+                        </a>
+                    </li>
+                {% endif %}
+                {% url "logout" as logout_url %}
+                {% if logout_url %}
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a href="{{ logout_url }}">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                            Logout
+                        </a>
+                    </li>
+                {% endif %}
+            {% else %}
+                {% url "signup" as signup_url %}
+                {% if signup_url %}
+                    <li>
+                        <a href="{{ signup_url }}">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                            Signup
+                        </a>
+                    </li>
+                {% endif %}
+                {% url "login" as login_url %}
+                {% if login_url %}
+                    <li>
+                        <a href="{{ login_url }}">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                            Login
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
 
-            <nav class="navbar navbar-default navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <a class="navbar-brand js-scroll-trigger" href="/">Ebook Depo</a>
+      {% for message in messages %}
+          <div class="alert alert-info">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+          </div>
+      {% endfor %}
+
+      {% block content %}
+      {% endblock %}
+
+      {% block footer %}
+          <footer class="footer text-center">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-4 mb-5 mb-lg-0">
+                  <h4 class="text-uppercase mb-4">Important Stuff</h4>
+          				<ul class="list-inline mb-0">
+          					<li class="list-inline-item">
+                      <a rel="nofollow" href="/">Cookies</a>
+                    </li>
+          					<li class="list-inline-item">
+                      <a rel="nofollow" href="/">Privacy policy</a>
+                    </li>
+          					<li class="list-inline-item">
+                      <a rel="nofollow" href="/">Terms &amp; Conditions</a>
+                    </li>
+          					<li class="list-inline-item">
+                      <a rel="nofollow" href="/">Secure shopping</a>
+                    </li>
+          					<li class="list-inline-item">
+                      <a rel="nofollow" href="/">Accessibility</a>
+                    </li>
+          				</ul>
                 </div>
-              </div>
-              <!-- <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fa fa-bars"></i>
-              </button> -->
-              <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="nav navbar-nav ml-auto">
-                  <li class="nav-item mx-0 mx-lg-1">
-                      <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'ebook' %}">Ebooks list</a>
-                  </li>
-                  <li class="nav-item mx-0 mx-lg-1">
-                      <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/#contact">Contact</a>
-                  </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right ml-auto">
-                  {% if user.is_authenticated %}
-                      <li class="nav-item mx-0 mx-lg-1">
-                          <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'profile' %}">Profile</a>
-                      </li>
-                      {% url "admin:index" as admin_url %}
-                      {% if user.is_staff and admin_url %}
-                          <li class="nav-item mx-0 mx-lg-1">
-                              <a href="{{ admin_url }}">
-                                  <span class="glyphicon glyphicon-dashboard"></span>
-                                  Administration
-                              </a>
-                          </li>
-                      {% endif %}
-                      {% url "logout" as logout_url %}
-                      {% if logout_url %}
-                          <li class="nav-item mx-0 mx-lg-1">
-                              <a href="{{ logout_url }}">
-                                  <span class="glyphicon glyphicon-log-out"></span>
-                                  Logout
-                              </a>
-                          </li>
-                      {% endif %}
-                  {% else %}
-                      {% url "login" as login_url %}
-                      {% if login_url %}
-                          <li>
-                              <a href="{{ login_url }}">
-                                  <span class="glyphicon glyphicon-log-in"></span>
-                                  Login
-                              </a>
-                          </li>
-                      {% endif %}
-                  {% endif %}
-                </ul>
-              </div>
-            </nav>
-        <!-- </div> -->
-
-        {% for message in messages %}
-            <div class="alert alert-info">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-            </div>
-        {% endfor %}
-
-        {% block content %}
-        {% endblock %}
-
-        <br><hr>
-        {% block footer %}
-            <footer class="footer text-center">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Important Stuff</h4>
-            				<ul class="list-inline mb-0">
-            					<li class="list-inline-item">
-                        <a rel="nofollow" href="/">Cookies</a>
-                      </li>
-            					<li class="list-inline-item">
-                        <a rel="nofollow" href="/">Privacy policy</a>
-                      </li>
-            					<li class="list-inline-item">
-                        <a rel="nofollow" href="/">Terms &amp; Conditions</a>
-                      </li>
-            					<li class="list-inline-item">
-                        <a rel="nofollow" href="/">Secure shopping</a>
-                      </li>
-            					<li class="list-inline-item">
-                        <a rel="nofollow" href="/">Accessibility</a>
-                      </li>
-            				</ul>
+                <div class="col-md-4 mb-5 mb-lg-0">
+                  <h4 class="text-uppercase mb-4">Around the Web</h4>
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                      <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                        <i class="fa fa-fw fa-facebook"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                        <i class="fa fa-fw fa-google-plus"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                        <i class="fa fa-fw fa-twitter"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                        <i class="fa fa-fw fa-linkedin"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                        <i class="fa fa-fw fa-dribbble"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <h4 class="text-uppercase mb-4">About ebook</h4>
                   </div>
-                  <div class="col-md-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Around the Web</h4>
-                    <ul class="list-inline mb-0">
-                      <li class="list-inline-item">
-                        <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                          <i class="fa fa-fw fa-facebook"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                          <i class="fa fa-fw fa-google-plus"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                          <i class="fa fa-fw fa-twitter"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                          <i class="fa fa-fw fa-linkedin"></i>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
-                          <i class="fa fa-fw fa-dribbble"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-md-4">
-                    <h4 class="text-uppercase mb-4">About ebook</h4>
-                    </div>
-                			<div class="payment-methods">
-                				<p>We accept these payment methods</p>
-                				<img class="lazy loaded" data-lazy="https://d3ogvdx946i4sr.cloudfront.net/assets/v2.10.22/img/payment-options.png" alt="Payment methods" src="https://d3ogvdx946i4sr.cloudfront.net/assets/v2.10.22/img/payment-options.png">
-                			</div>
-                		</div>
+              			<div class="payment-methods">
+              				<p>We accept these payment methods</p>
+              				<img class="lazy loaded" data-lazy="https://d3ogvdx946i4sr.cloudfront.net/assets/v2.10.22/img/payment-options.png" alt="Payment methods" src="https://d3ogvdx946i4sr.cloudfront.net/assets/v2.10.22/img/payment-options.png">
+              			</div>
+              		</div>
 
-                </div>
               </div>
-            </footer>
-            <div class="copyright py-4 text-center">
-              <div class="container" style="color: white">
-                <!-- <small>Copyright &copy; ebook 2017</small> -->
-                <i class="icon-bd"></i>
-                <div id="copyright" class="text" title="BdiMetadata{webserver='dusseldorf', requestTime='0.07 sec', userSessionCurrencyCode='EUR', userSessionCountry='BE', userIp='109.88.181.61', cacheParams=BdiCacheMetadata{cacheCountry='null', cacheCurrency='null', controllerName='null', actionName='null', moduleName='null', serverScheme='null', cacheNamespace='null', cacheKey='null', generatedOn=Fri Jan 19 03:15:35 UTC 2018, cacheEnabled=true}}">
-                  © 2018 The EBook Depo Ltd.<br>
-                		BE. Registered company number: 1337
-                </div>
             </div>
-        {% endblock %}
+          </footer>
+          <div class="copyright py-4 text-center">
+            <div class="container" style="color: white">
+              <!-- <small>Copyright &copy; ebook 2017</small> -->
+              <i class="icon-bd"></i>
+              <div id="copyright" class="text" title="BdiMetadata{webserver='dusseldorf', requestTime='0.07 sec', userSessionCurrencyCode='EUR', userSessionCountry='BE', userIp='109.88.181.61', cacheParams=BdiCacheMetadata{cacheCountry='null', cacheCurrency='null', controllerName='null', actionName='null', moduleName='null', serverScheme='null', cacheNamespace='null', cacheKey='null', generatedOn=Fri Jan 19 03:15:35 UTC 2018, cacheEnabled=true}}">
+                © 2018 The EBook Depo Ltd.<br>
+              		BE. Registered company number: 1337
+              </div>
+          </div>
+      {% endblock %}
 
     </body>
 </html>
