@@ -33,7 +33,7 @@
                 </form>
 
                 <div class="row">
-                  By (author) {{ ebook.author.first_name }} {{ ebook.author.last_name }}
+                  By (author) <a href="{% url 'ebook_author' slug=ebook.author.id %}">{{ ebook.author.first_name }} {{ ebook.author.last_name }}</a>
                 </div>
                 <div class="row">
                   {{ ebook.description }}

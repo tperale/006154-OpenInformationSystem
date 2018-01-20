@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from search_listview.list import SearchableListView
@@ -7,7 +7,7 @@ from search_listview.list import SearchableListView
 from ebook.models import Ebook, Rating
 from ebook.forms import EbookForm
 
-from user.models import Purchase, UserBookPurchase
+from user.models import Purchase, UserBookPurchase, Author
 
 class BookListView(SearchableListView):
     template_name = 'ebook_list.html'
@@ -18,6 +18,17 @@ class BookListView(SearchableListView):
     # specifications = {
     #     "title": "__icontains"
     # }
+
+
+class AuthorBookView(TemplateView):
+    template_name = 'ebook_author.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = Ebook.objects.filter(author=self.kwargs.get('slug', None))
+        context['ebooks'] = obj
+        context['author'] = Author.objects.get(id=self.kwargs.get('slug', None))
+        return context
 
 class BookDetailView(SearchableListView):
     template_name = 'ebook_detail.html'
