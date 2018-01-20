@@ -19,7 +19,7 @@
               <div class="item col-xs-12 col-lg-6">
                 <form action="{% url 'ebook_rate' slug=ebook.isbn %}" method="post" class="wrapper">
                   {% csrf_token %}
-                  {{ ebook.rates }} / 5
+                  {{ ebook.rates | floatformat:1 }} / 5
                   <input name="rate" type="submit" id="st5" value="5" />
                   <label for="st5"></label>
                   <input name="rate" type="submit" id="st4" value="4" />
