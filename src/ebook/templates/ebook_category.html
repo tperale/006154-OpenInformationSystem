@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+{% for error in form.non_field_errors %}
+    <div class='alert alert-danger'>{{ error }}</div>
+{% endfor %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2 mx-auto"></div>
+        <div class="col-lg-8 mx-auto">
+            <h2 class="text-secondary text-uppercase mb-0">Book categories</h2>
+            <hr>
+            <div id="products" class="row list-group">
+                <ul>
+                {% for cat in categories %}
+                  <li><a href="{% url 'ebook_category' slug=cat.id %}">{{ cat.name }}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script>
+$(document).ready(function() {
+    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+});
+</script> -->
+<script src="{% static 'search_listview/js/search_listview.js' %}"></script>
+<script>
+    start_search()
+</script>
+{% endblock content %}

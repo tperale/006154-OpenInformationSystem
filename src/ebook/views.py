@@ -4,7 +4,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from search_listview.list import SearchableListView
 
-from ebook.models import Ebook, Rating
+from ebook.models import Ebook, Rating, Category, BookCategory
 from ebook.forms import EbookForm
 
 from user.models import Purchase, UserBookPurchase, Author
@@ -28,6 +28,31 @@ class AuthorBookView(TemplateView):
         obj = Ebook.objects.filter(author=self.kwargs.get('slug', None))
         context['ebooks'] = obj
         context['author'] = Author.objects.get(id=self.kwargs.get('slug', None))
+        return context
+
+class BookForCategoryView(SearchableListView):
+    template_name = 'ebook_categories.html'
+    model = Category
+    paginate_by = 10
+    searchable_fields = ['name']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = BookCategory.objects.filter(category=self.kwargs.get('slug', None))
+        ebooks = []
+        for x in obj:
+            ebooks.append(x.ebook)
+        context['category'] = Category.objects.get(id=self.kwargs.get('slug', None))
+        context['ebooks'] = ebooks
+        return context
+
+
+class CategoriesView(TemplateView):
+    template_name = 'ebook_category.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
         return context
 
 class BookDetailView(SearchableListView):
