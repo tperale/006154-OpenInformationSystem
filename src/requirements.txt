@@ -1,3 +1,4 @@
 django
 django-sekizai
 django-search-listview
+mysqlclient
